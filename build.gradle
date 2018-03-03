@@ -1,0 +1,223 @@
+apply plugin: 'maven'
+apply plugin: 'distribution'
+
+/*dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}*/
+
+task purge << {
+  //println 'Cleaning up old files'
+  delete 'vendor', 'logs', 'build', 'composer.phar'
+}
+task composer(type:Exec) {
+  //println 'Setting up dependencies'
+  executable 'sh'
+  args '-c', 'php -r "readfile(\'https://getcomposer.org/installer\');" | php'
+  standardOutput = new ByteArrayOutputStream()
+  ext.output = { return standardOutput.toString() }
+}
+task vendor(type:Exec) {
+  //println 'Installing dependencies'
+  executable 'sh'
+  args '-c', 'php composer.phar install'
+  standardOutput = new ByteArrayOutputStream()
+  ext.output = { return standardOutput.toString() }
+}
+repositories {
+    mavenCentral()
+}
+/*plugins {
+  id "org.hasnat.php-build-plugin" version "0.1-SNAPSHOT"
+}*/
+task gulp(type:Exec) {
+  //println 'Performing gulp packaging tasks;
+  executable 'sh'
+  args '-c', "gulp"
+}
+task test(type:Exec) {
+  //println 'Executing tests'
+  executable 'sh'
+  args '-c', "php \
+    -d 'date.timezone=\'America/Chicago\'' \
+    'libraries/bootstrap/js/tests/vendor/qunit.js' \
+    'libraries/bootstrap/js/tests/vendor/jquery.js'\
+     'libraries/bootstrap/js/tests/vendor/quint.css'\
+     'libraries/bootstrap/js/tests/index.html'\
+     'libraries/bootstrap/js/tests/unit/bootstrap-tab.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-alert.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-modal.js'\
+     'libraries/bootstrap/js/tests/unit/bootstrap-button.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-popover.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-tolltip.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-collapse.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-dropwon.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-scrollspy.js'\
+    --log-junit='./logs/unitreport.xml'"
+}
+task coverage(type:Exec) {
+  //println 'Executing code coverage via executing tests with instrumented code'
+  executable 'sh'
+  args '-c', "php \
+    -d 'date.timezone=\'America/Chicago\'' \
+    'libraries/bootstrap/js/tests/vendor/qunit.js' \
+    'libraries/bootstrap/js/tests/vendor/jquery.js'\
+     'libraries/bootstrap/js/tests/vendor/quint.css'\
+     'libraries/bootstrap/js/tests/index.html'\
+     'libraries/bootstrap/js/tests/unit/bootstrap-tab.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-alert.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-modal.js'\
+     'libraries/bootstrap/js/tests/unit/bootstrap-button.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-popover.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-tolltip.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-collapse.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-dropwon.js' \
+     'libraries/bootstrap/js/tests/unit/bootstrap-scrollspy.js'\
+    --log-junit='./logs/unitreport.xml' \
+    --coverage-clover='./logs/clover.xml' \
+    --coverage-html='./logs/coverage_html'"
+}
+distributions {
+  application {
+    baseName = 'Core'
+    contents {
+      from ('ansible') { into 'ansible' }
+      from ('cache') { into 'cache' }
+      from ('config') { into 'config' }
+      from ('cron') { into 'cron' }
+      from ('data') { into 'data' }
+      from ('go_live') { into 'go_live' }
+      from ('dispatch') { into 'dispatch' }
+      from ('include') { into 'include' }
+      from ('includes') { into 'includes' }
+      from ('kcfinder') { into 'kcfinder' }
+      from ('languages') { into 'languages' }
+      from ('layouts/vlayout') { into 'layouts/vlayout' }
+      from ('libraries') { into 'libraries' }
+      from ('license') { into 'license' }
+      from ('migrate') { into 'migrate' }
+      from ('modules') { into 'modules' }
+      from ('one-off scripts') { into 'one-off scripts' }
+      from ('packages/vtiger') { into 'packages/vtiger' }
+      from ('pkg') { into 'pkg' }
+      from ('portal') { into 'portal' }
+      from ('resources') { into 'resources' }
+      from ('schema') { into 'schema' }
+      from ('stubs/modules/PicklistCustomizer/views') { into 'stubs/module/PicklistCustomizer/views'}
+      from ('vtlib') { into 'vtlib' }
+      from {'.editorconfig' }
+      from {'.env.example' }
+      from {'.gitignore' }
+      from {'Browser_compatibilty.html' }
+      from {'CHANGELOG.md' }
+      from {'CloseRatioWidget.php' }
+      from {'Copyright.txt'}
+      from {'CreateReferenceMultiPicklistUIType.php' }
+      from {'CreateUsersFieldOnEmployees.php' }
+      from {'DropboxHook.php' }
+      from {'ExchangeNTLMSoapClient.php' }
+      from {'Initialization_Graebel.php' }
+      from {'Initialization_McCollisters.php' }
+      from {'Initialization_MoveHQ.php' }
+      from {'Initialization_Sirva.php' }
+      from {'Initialization_Windfall.php' }
+      from {'LICENSE.txt' }
+      from {'MetaVtlibFunctions.php'}
+      from {'NTLMSoapClient.php'}
+      from {'PEAR.php' }
+      from {'Profile_Permissions_Graebel.php' }
+      from {'QBOoauth.php' }
+      from {'README.txt' }
+      from {'Release_Notes.html' }
+      from {'RoboFile.php' }
+      from {'SMSResponderBootstrap.php' }
+      from {'SPL-1.1.2.txt' }
+      from {'Services.wsdl' }
+      from {'SirvalmporterCLI.php' }
+      from {'SurveyOIService.php' }
+      from {'_clear_temp_tables.php' }
+      from {'_convert_tokbox_archives_to_media.php' }
+      from {'_fix_exchange_calendar_tables.php' }
+      from {'_get_duplicate_related_list_items.php' }
+      from {'_migrate.php' }
+      from {'_recreate_user_privilege_files.php' }
+      from {'_recreate_user_privilege_files_helper.php' }
+      from {'_recreate_user_privilege_files_rework_test.php' }
+      from {'_reset_seq_tables.php'}
+      from {'_update_hotfix_versioning.php' }
+      from {'_update_image_size.php' }
+      from {'andriod-chrome-192*192.png' }
+      from {'andriod-chrome-512*512.png' }
+      from {'apple-touch-icon.png' }
+      from {'authTest.php' }
+      from {'basic_user_import.php' }
+      from {'browserconfig.xml' }
+      from {'changeDefaultEmailTemplates.php' }
+      from {'change_user_roles_20161110.php' }
+      from {'codeception.yml' }
+      from {'Config.csrf-secret.php' }
+      from {'config.inc.php' }
+      from {'config.db.php' }
+      from {'config.performance.php' }
+      from {'config.php' }
+      from {'config.template.php' }
+      from {'connection.php' }
+      from {'copyright.html' }
+      from {'cubesheetSave.php' }
+      from {'customWebserviceFunctions.php' }
+      from {'database_updater.php' }
+      from {'documentmoduleupload.php' }
+      from {'docupload.php' }
+      from {'docuploadclone.php' }
+      from {'domaincheck.php' }
+      from {'exchangeAutoSync.php' }
+      from {'exchangeHelper.php' }
+      from {'exchange_test.php' }
+      from {'favicon-16*16.png' }
+      from {'favicon-32*32.png' }
+      from {'favicon.ico' }
+      from {'forgotPassword.php' }
+      from {'go_liveManager.php' }
+      from {'go_live_uvlc.php' }
+      from {'go_live_sirva.php' }
+      from {'googleAutoSync.php' }
+      from {'htaccess.txt' }
+      from {'index.php' }
+      from {'licenceAgreement.html' }
+      from {'load_phpdotenv.php' }
+      from {'log4php.properties' }
+      from {'manifest.json' }
+      from {'messages.xsd' }
+      from {'mstile-150*150.png'}
+      from {'orderstask_workflow_trigger_20170220.php' }
+      from {'phpversionfail.php' }
+      from {'processdbx.php' }
+      from {'reset_user_widgets.php' }
+      from {'robots.txt' }
+      from {'run_leadsource_import.php' }
+      from {'safari-pinned-tab.svg' }
+      from {'server.env' }
+      from {'shorturl.php' }
+      from {'surveywsdl.php' }
+      from {'syncwebservice.php' }
+      from {'twimi.php' }
+      from {'types.Xsd' }
+      from {'updateTabData.php' }
+      from {'uvl-c_initialization.php' }
+      from {'videoSurveyPopout.php' }
+      from {'vtigercron.php' }
+      from {'vtigerservice.php' }
+      from {'vtigerversion.php' }
+      from {'webservice.php' }
+      from {'wikiupdater.php' }
+      from { 'master_script.php' }
+    }
+  }
+}
+def tarfile = "build/distributions/Core-" + version
+task tarball(type:Exec) {
+  //println 'Compressing tar'
+  executable 'sh'
+  args '-c', "gzip -f < " + tarfile + ".tar > " + tarfile + ".tgz"
+}
+
