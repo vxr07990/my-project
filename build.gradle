@@ -1,3 +1,7 @@
+plugins {
+  id "org.sonarqube" version "1.1"
+}
+apply plugin: "org.sonarqube"
 apply plugin: 'maven'
 apply plugin: 'distribution'
 
@@ -83,6 +87,20 @@ def majorVersion = System.getenv("MAJOR_VERSION") ?: "1"
 def minorVersion = System.getenv("MINOR_VERSION") ?: "0"
 def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
 version = majorVersion + "." + minorVersion + "." + jenkinsBuild
+
+sonarqube {
+  properties {
+    property "sonar.projectKey", jenkinsJob
+    property "sonar.projectName", jenkinsJob
+    property "sonar.projectVersion", "1.0"
+    property "sonar.projectBaseDir", "./"
+    property "sonar.sources", "./"
+    property "sonar.exclusions", "build/**, logs/**, public/lib/**, public/js/**, public/css/**, scripts/**, tests/**, vendor/**, node_modules/**"
+    property "sonar.tests", "tests/phpunit"
+    property "sonar.php.coverage.reportPath", "logs/clover.xml"
+    property "sonar.php.tests.reportPath", "logs/unitreport.xml"
+  }
+}
 
 
 distributions {
