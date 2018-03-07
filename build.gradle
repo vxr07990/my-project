@@ -101,10 +101,10 @@ task coverage(type:Exec) {
 }
 def jenkinsJob = System.getenv("JOB_NAME") ?: "Default"
 
-/* def majorVersion = System.getenv("MAJOR_VERSION") ?: "1"
+def majorVersion = System.getenv("MAJOR_VERSION") ?: "1"
 def minorVersion = System.getenv("MINOR_VERSION") ?: "0"
 def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
-version = majorVersion + "." + minorVersion + "." + jenkinsBuild */
+version = majorVersion + "." + minorVersion + "." + jenkinsBuild 
 
 sonarqube {
   properties {
@@ -289,7 +289,7 @@ distributions {
     }
   }
 }
-def tarfile = "build/distributions/Artifactory"
+def tarfile = "build/distributions/Artifactory" + version
 task tarball(type:Exec) {
   //println 'Compressing tar'
   executable 'sh'
