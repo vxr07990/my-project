@@ -13,7 +13,7 @@ plugins {
 }
 
 allprojects {
-    apply plugin: 'com.jfrog.artifactory'
+    apply plugin: "com.jfrog.artifactory"
   //configure(subprojects.findAll { new File(it.projectDir, '/var/lib/jenkins/workspace/my-project').directory }) 
     
 //group = 'org.jfrog.example.gradle'
