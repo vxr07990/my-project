@@ -295,7 +295,7 @@ distributions {
     }
   }
 }
-def tarfile = "build/distributions/Core-" + version
+def tarfile = "build/distributions/Artifactory-1.0.13.zip" + version
 task tarball(type:Exec) {
   //println 'Compressing tar'
   executable 'sh'
