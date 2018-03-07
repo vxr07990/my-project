@@ -154,7 +154,7 @@ artifactory {
 
 distributions {
   application {
-    baseName = 'Core'
+    baseName = 'Artifactory'
     contents {
       from ('ansible') { into 'ansible' }
       from ('cache') { into 'cache' }
