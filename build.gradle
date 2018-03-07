@@ -26,10 +26,9 @@ apply plugin: 'distribution'
 
 
 
-/*dependencies {
-    compile gradleApi()
-    compile localGroovy()
-}*/
+dependencies {
+    mavenCentral()
+    }
 
 task purge << {
   //println 'Cleaning up old files'
