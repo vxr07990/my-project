@@ -5,11 +5,8 @@ buildscript {
     }
     dependencies {
         //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4+'
+         classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '4.+')
     }
-}
-plugins {
-  id 'org.sonarqube' version '2.6.2'
 }
 
 allprojects {
@@ -19,6 +16,9 @@ allprojects {
 //group = 'org.jfrog.example.gradle'
   version = currentVersion
   status = 'Integration'
+}
+plugins {
+  id 'org.sonarqube' version '2.6.2'
 }
 apply plugin: 'maven'
 apply plugin: 'distribution'
