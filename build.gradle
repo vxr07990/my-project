@@ -151,6 +151,12 @@ artifactory {
         }
     }
 }
+ publications {
+        myPublication(MavenPublication) {
+            artifact source: distZip, extension: "zip"
+            artifact source: someOtherDistZip, classifier: "dumdeedum", extension: "zip"
+        }
+    }
 
 distributions {
   application {
