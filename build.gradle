@@ -49,9 +49,6 @@ task vendor(type:Exec) {
   standardOutput = new ByteArrayOutputStream()
   ext.output = { return standardOutput.toString() }
 }
-repositories {
-    mavenCentral()
-}
 /*plugins {
   id "org.hasnat.php-build-plugin" version "0.1-SNAPSHOT"
 }*/
@@ -129,6 +126,9 @@ sonarqube {
             }
         }
     }*/
+    configurations {
+  published
+}
 
 artifactory {
     contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
