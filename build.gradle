@@ -121,14 +121,14 @@ sonarqube {
     property "sonar.php.tests.reportPath", "logs/unitreport.xml"
   }
 } 
- publishing {
+/* publishing {
         publications {
             mavenJava(MavenPublication) {
            // from components.my-project
                 artifact(file("/var/lib/jenkins/workspace/my-project/gradle.properties"))
             }
         }
-    }
+    }*/
 
 artifactory {
     contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
@@ -151,7 +151,7 @@ artifactory {
         }
     }
 }
- publications {
+publishing.publications {
         myPublication(MavenPublication) {
             artifact source: distZip, extension: "zip"
             artifact source: someOtherDistZip, classifier: "dumdeedum", extension: "zip"
