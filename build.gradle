@@ -289,7 +289,7 @@ distributions {
     }
   }
 }
-def tarfile = "build/distributions/Artifactory-" + version
+def tarfile = "build/distributions/Artifactory"
 task tarball(type:Exec) {
   //println 'Compressing tar'
   executable 'sh'
