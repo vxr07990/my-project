@@ -124,8 +124,8 @@ sonarqube {
  publishing {
         publications {
             mavenJava(MavenPublication) {
-              //from components.java
-                artifact(file("$rootDir/gradle.properties"))
+              from components.my-project
+                artifact(file("/var/lib/jenkins/workspace/my-project/gradle.properties"))
             }
         }
     }
