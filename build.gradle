@@ -24,12 +24,6 @@ plugins {
 apply plugin: 'maven'
 apply plugin: 'distribution'
 
-
-
-dependencies {
-    mavenCentral()
-    }
-
 task purge << {
   //println 'Cleaning up old files'
   delete 'vendor', 'logs', 'build', 'composer.phar'
