@@ -21,9 +21,9 @@ plugins {
   status = 'Integration'
 }
 */
-apply plugin: 'maven'
+
 apply plugin: 'distribution'
-apply plugin: 'maven-publish'
+
 
 
 /*dependencies {
@@ -151,12 +151,6 @@ artifactory {
         }
     }
 }
-publishing.publications {
-        myPublication(MavenPublication) {
-            artifact source: distZip, extension: "zip"
-            artifact source: distZip, classifier: "dumdeedum", extension: "zip"
-        }
-    }
 
 distributions {
   application {
