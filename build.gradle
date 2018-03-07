@@ -154,7 +154,7 @@ artifactory {
 publishing.publications {
         myPublication(MavenPublication) {
             artifact source: distZip, extension: "zip"
-            artifact source: someOtherDistZip, classifier: "dumdeedum", extension: "zip"
+            artifact source: my-project, classifier: "dumdeedum", extension: "zip"
         }
     }
 
