@@ -1,5 +1,24 @@
+buildscript {
+    repositories {
+        jcenter()
+        
+    }
+    dependencies {
+        //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+    }
+}
 plugins {
   id 'org.sonarqube' version '2.6.2'
+}
+
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+    configure(subprojects.findAll { new File(it.projectDir, '/var/lib/jenkins/workspace/my-project').directory }) 
+    
+  group = 'org.jfrog.example.gradle'
+  version = currentVersion
+  status = 'Integration'
 }
 apply plugin: 'maven'
 apply plugin: 'distribution'
@@ -101,6 +120,27 @@ sonarqube {
   }
 } 
 
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'libs-snapshort'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+       
+       }
+    }
+    resolve {
+        repository {
+            repoKey = 'libs-resolve'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+            
+        }
+    }
+}
 
 distributions {
   application {
