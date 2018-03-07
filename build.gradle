@@ -14,7 +14,7 @@ plugins {
 
 allprojects {
     apply plugin: 'com.jfrog.artifactory'
-  configure(subprojects.findAll { new File(it.projectDir, '/var/lib/jenkins/workspace/my-project').directory }) 
+  //configure(subprojects.findAll { new File(it.projectDir, '/var/lib/jenkins/workspace/my-project').directory }) 
     
 //group = 'org.jfrog.example.gradle'
   version = currentVersion
@@ -23,6 +23,7 @@ allprojects {
 
 apply plugin: 'maven'
 apply plugin: 'distribution'
+apply plugin: 'maven-publish'
 
 
 /*dependencies {
@@ -120,6 +121,14 @@ sonarqube {
     property "sonar.php.tests.reportPath", "logs/unitreport.xml"
   }
 } 
+ publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                artifact(file("$rootDir/gradle.properties"))
+            }
+        }
+    }
 
 artifactory {
     contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
