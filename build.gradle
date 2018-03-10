@@ -119,32 +119,7 @@ sonarqube {
             }
         }
     }*/
-    configurations {
-  published
-}
-
-artifactory {
-    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            repoKey = 'libs-snapshort'
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-            maven = true
-       
-       }
-    }
-    resolve {
-        repository {
-            repoKey = 'libs-resolve'
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-            maven = true
-            
-        }
-    }
-}
-
+    
 distributions {
   application {
     baseName = 'Artifactory'
@@ -287,5 +262,26 @@ task tarball(type:Exec) {
   //println 'Compressing tar'
   executable 'sh'
   args '-c', "gzip -f < " + tarfile + ".tar > " + tarfile + ".tgz"
+}
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'libs-snapshort'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+       
+       }
+    }
+    resolve {
+        repository {
+            repoKey = 'libs-resolve'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+            
+        }
+    }
 }
 
