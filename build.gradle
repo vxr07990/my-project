@@ -102,11 +102,9 @@ version = majorVersion + "." + minorVersion + "." + jenkinsBuild
 sonarqube {
   properties {
     property "sonar.projectKey", "Core"
-   property "sonar.projectName", "Core"
-   property "sonar.projectVersion", "1.0"
-   property "sonar.projectBaseDir", "/var/lib/jenkins/workspace/my-project"
-   property "sonar.sources", "/var/lib/jenkins/workspace/my-project"
- // property "sonar.tests", "tests/phpunit"
+    property "sonar.projectName", "Core"
+    property "sonar.projectVersion", "1.0"
+    property "sonar.sourceEncoding", "UTF-8"
     property "sonar.php.coverage.reportPath", "logs/clover.xml"
     property "sonar.php.tests.reportPath", "logs/unitreport.xml"
   }
