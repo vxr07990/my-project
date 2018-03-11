@@ -100,7 +100,7 @@ def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
 version = majorVersion + "." + minorVersion + "." + jenkinsBuild 
 
 sonarqube {
-  sonarProperties {
+  properties {
     property "sonar.projectKey", "Core"
     property "sonar.projectName", "Core"
     property "sonar.projectVersion", "1.0"
