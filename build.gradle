@@ -23,6 +23,7 @@ allprojects {
 
 apply plugin: 'maven'
 apply plugin: 'distribution'
+apply plugin: 'sonar-runner'
 
 task purge << {
   //println 'Cleaning up old files'
@@ -99,8 +100,8 @@ def minorVersion = System.getenv("MINOR_VERSION") ?: "0"
 def jenkinsBuild = System.getenv("BUILD_NUMBER") ?: "0"
 version = majorVersion + "." + minorVersion + "." + jenkinsBuild 
 
-sonarqube {
-  properties {
+sonarRunner {
+  sonarProperties {
     property "sonar.projectKey", "Core"
     property "sonar.projectName", "Core"
     property "sonar.projectVersion", "1.0"
