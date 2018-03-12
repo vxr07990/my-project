@@ -261,7 +261,7 @@ task tarball(type:Exec) {
   executable 'sh'
   args '-c', "gzip -f < " + tarfile + ".tar > " + tarfile + ".tgz"
 }
-artifactory {
+*/artifactory {
     contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
@@ -281,5 +281,5 @@ artifactory {
             
         }
     }
-}
+} */
 
