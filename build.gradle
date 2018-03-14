@@ -261,7 +261,7 @@ artifactory {
     contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
-            repoKey = 'gradle-local'
+            repoKey = 'libs-snapshots-local'
             username = "${artifactory_user}"
             password = "${artifactory_password}"
             maven = true
