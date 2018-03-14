@@ -9,11 +9,12 @@ buildscript {
     }
 }
 
-allprojects {
-    apply plugin: "com.jfrog.artifactory"
-}
 plugins {
   id 'org.sonarqube' version '2.6.2'
+}
+
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
 }
 
 apply plugin: 'maven'
