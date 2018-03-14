@@ -14,7 +14,7 @@ plugins {
 }
 
 allprojects {
-    apply plugin: "com.jfrog.artifactory"
+    apply plugin: 'com.jfrog.artifactory'
 }
 
 apply plugin: 'maven'
