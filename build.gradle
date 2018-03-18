@@ -13,9 +13,9 @@ plugins {
   id 'org.sonarqube' version '2.6.2'
 }
 
-allprojects {
+/*allprojects {
     apply plugin: 'com.jfrog.artifactory'
-}
+}*/
 
 apply plugin: 'maven'
 apply plugin: 'distribution'
