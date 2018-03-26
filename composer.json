@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "7.0.25",
+        "php": "~5.5",
         "ext-json": "*",
         "ext-mysqli": "*",
         "ext-SPL": "*",
